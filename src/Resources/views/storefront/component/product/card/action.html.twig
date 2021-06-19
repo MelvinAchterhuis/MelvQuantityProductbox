@@ -1,0 +1,41 @@
+{% sw_extends '@Storefront/storefront/component/product/card/action.html.twig' %}
+
+{% block component_product_box_action_form %}
+    <div class="row no-gutters">
+        <div class="col-4 pr-2">
+            {% block component_product_box_action_buy_redirect_input %}
+                {{ parent() }}
+            {% endblock %}
+
+            {% block page_product_detail_buy_product_buy_info %}
+                <input type="hidden"
+                       name="lineItems[{{ id }}][id]"
+                       value="{{ id }}">
+                <input type="hidden"
+                       name="lineItems[{{ id }}][referencedId]"
+                       value="{{ id }}">
+                <input type="hidden"
+                       name="lineItems[{{ id }}][type]"
+                       value="product">
+                <input type="hidden"
+                       name="lineItems[{{ id }}][stackable]"
+                       value="1">
+                <input type="hidden"
+                       name="lineItems[{{ id }}][removable]"
+                       value="1">
+                {{ block("page_product_detail_buy_quantity", "@Storefront/storefront/page/product-detail/buy-widget-form.html.twig") }}
+            {% endblock %}
+
+            {% block page_product_detail_product_buy_meta %}
+                {{ parent() }}
+            {% endblock %}
+        </div>
+
+        {% block page_product_detail_product_buy_button %}
+            <div class="col-8">
+                {{ parent() }}
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}
+
