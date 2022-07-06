@@ -1,7 +1,7 @@
 {
     "name": "melvinachterhuis/quantity-productbox-shopware6-plugin",
     "description": "Select quantity in the product box",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "license": "MIT",
     "authors": [
         {
