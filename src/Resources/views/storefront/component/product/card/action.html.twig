@@ -1,8 +1,8 @@
 {% sw_extends '@Storefront/storefront/component/product/card/action.html.twig' %}
 
 {% block component_product_box_action_form %}
-    <div class="row no-gutters">
-        <div class="col-6 col-md-4 pr-2">
+    <div class="row g-2">
+        <div class="col-6 col-md-4">
             {% block component_product_box_action_buy_redirect_input %}
                 {{ parent() }}
             {% endblock %}
@@ -24,7 +24,23 @@
                 <input type="hidden"
                        name="lineItems[{{ id }}][removable]"
                        value="1">
-                {{ block("page_product_detail_buy_quantity", "@Storefront/storefront/page/product-detail/buy-widget-form.html.twig") }}
+                <select name="lineItems[{{ product.id }}][quantity]"
+                        class="form-select">
+                    {% for quantity in range(product.minPurchase, product.calculatedMaxPurchase, product.purchaseSteps) %}
+                        <option value="{{ quantity }}">
+                            {{ quantity }}
+                            {% if quantity == 1 %}
+                                {% if product.translated.packUnit %} {{ product.translated.packUnit }}{% endif %}
+                            {% else %}
+                                {% if product.translated.packUnitPlural %}
+                                    {{ product.translated.packUnitPlural }}
+                                {% elseif product.translated.packUnit %}
+                                    {{ product.translated.packUnit }}
+                                {% endif %}
+                            {% endif %}
+                        </option>
+                    {% endfor %}
+                </select>
             {% endblock %}
 
             {% block page_product_detail_product_buy_meta %}
